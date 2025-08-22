@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدرس الأول - الرياضيات - الصف الرابع</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Fredoka+One:wght@400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 25%, #c5e1a5 50%, #aed581 75%, #9ccc65 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* علامة مائية */
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #33691e;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* خلفية متحركة */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .math-shape {
+            position: absolute;
+            animation: math-float 20s infinite linear;
+            opacity: 0.1;
+        }
+
+        .circle {
+            background: #8bc34a;
+            border-radius: 50%;
+        }
+
+        .square {
+            background: #689f38;
+            transform: rotate(45deg);
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid #9ccc65;
+        }
+
+        @keyframes math-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            padding: 35px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: header-shine 4s ease-in-out infinite;
+        }
+
+        @keyframes header-shine {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .header h1 {
+            color: #1b5e20;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            color: #2e7d32;
+            font-size: 1.3rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .activity-card {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border-color: rgba(139, 195, 74, 0.6);
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .activity-card:hover::before {
+            left: 100%;
+        }
+
+        .activity-title {
+            color: #1b5e20;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .activity-number {
+            background: linear-gradient(135deg, #8bc34a, #689f38);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.4);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #8bc34a, #689f38);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 8px;
+            box-shadow: 0 6px 20px rgba(139, 195, 74, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.4);
+            background: linear-gradient(135deg, #689f38, #33691e);
+        }
+
+        .number-display {
+            font-size: 4rem;
+            color: #2e7d32;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .number-display:hover {
+            transform: scale(1.1);
+            color: #1b5e20;
+        }
+
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .number-card {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .number-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(139, 195, 74, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .number-card:hover::before {
+            opacity: 1;
+        }
+
+        .number-card:hover {
+            background: rgba(255, 255, 255, 0.7);
+            transform: scale(1.08);
+            border-color: #8bc34a;
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+        }
+
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.35);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 2px solid transparent;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: #8bc34a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 195, 74, 0.2);
+        }
+
+        .quiz-option.correct {
+            background: rgba(76, 175, 80, 0.4);
+            border-color: #4caf50;
+            color: #1b5e20;
+        }
+
+        .quiz-option.wrong {
+            background: rgba(244, 67, 54, 0.3);
+            border-color: #f44336;
+            color: #c62828;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+            padding: 18px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.4);
+            font-size: 1.1rem;
+            margin: 15px 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #8bc34a;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.2);
+        }
+
+        /* موجات صوتية محسنة */
+        .sound-waves {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        .sound-waves.active {
+            display: flex;
+        }
+
+        .wave {
+            width: 5px;
+            height: 25px;
+            background: linear-gradient(135deg, #8bc34a, #689f38);
+            border-radius: 3px;
+            animation: wave-animation 1.2s ease-in-out infinite;
+            box-shadow: 0 2px 8px rgba(139, 195, 74, 0.3);
+        }
+
+        .wave:nth-child(2) { animation-delay: 0.1s; }
+        .wave:nth-child(3) { animation-delay: 0.2s; }
+        .wave:nth-child(4) { animation-delay: 0.3s; }
+        .wave:nth-child(5) { animation-delay: 0.4s; }
+        .wave:nth-child(6) { animation-delay: 0.5s; }
+
+        @keyframes wave-animation {
+            0%, 100% { 
+                height: 25px; 
+                background: linear-gradient(135deg, #8bc34a, #689f38);
+            }
+            50% { 
+                height: 50px; 
+                background: linear-gradient(135deg, #689f38, #33691e);
+            }
+        }
+
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 25px;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 195, 74, 0.3);
+        }
+
+        .celebration.show {
+            display: block;
+            animation: celebration-pop 0.6s ease-out;
+        }
+
+        @keyframes celebration-pop {
+            0% { 
+                transform: translate(-50%, -50%) scale(0.3); 
+                opacity: 0; 
+                rotate: -10deg;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1); 
+                rotate: 5deg;
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(1); 
+                opacity: 1; 
+                rotate: 0deg;
+            }
+        }
+
+        .place-value-table {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .place-value-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .place-value-table th,
+        .place-value-table td {
+            padding: 15px;
+            text-align: center;
+            border: 2px solid rgba(139, 195, 74, 0.3);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .place-value-table th {
+            background: rgba(139, 195, 74, 0.3);
+            color: #1b5e20;
+        }
+
+        .place-value-table td {
+            background: rgba(255, 255, 255, 0.5);
+            color: #2e7d32;
+        }
+
+        .drag-item {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin: 8px;
+            cursor: grab;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .drag-item:hover {
+            background: rgba(255, 255, 255, 0.7);
+            transform: scale(1.05);
+            border-color: #8bc34a;
+        }
+
+        .drag-item:active {
+            cursor: grabbing;
+        }
+
+        .drop-zone {
+            min-height: 80px;
+            border: 3px dashed rgba(139, 195, 74, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #8bc34a;
+            background: rgba(139, 195, 74, 0.1);
+            transform: scale(1.02);
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .calc-display {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 2px solid rgba(139, 195, 74, 0.3);
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .calc-btn {
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(139, 195, 74, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #2e7d32;
+        }
+
+        .calc-btn:hover {
+            background: rgba(139, 195, 74, 0.3);
+            transform: scale(1.05);
+        }
+
+        .calc-btn.operator {
+            background: rgba(139, 195, 74, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .activity-card {
+                padding: 25px;
+            }
+
+            .number-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg" id="animatedBg"></div>
+    
+    <div class="watermark">
+        إبراهيم الحجيلي
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🔢 الدرس الأول - الرياضيات 🔢</h1>
+            <p>الصف الرابع الابتدائي - العام الدراسي 1447هـ</p>
+            <p style="margin-top: 10px; font-size: 1rem;">الأعداد الكبيرة والقيمة المكانية</p>
+        </div>
+
+        <div class="activities-grid">
+            <!-- النشاط الأول: قراءة الأعداد الكبيرة -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">1</div>
+                    قراءة الأعداد الكبيرة
+                </div>
+                <div class="number-grid">
+                    <div class="number-card" onclick="speakNumber('1234', 'ألف ومئتان وأربعة وثلاثون')">
+                        <div class="number-display" style="font-size: 2rem;">1,234</div>
+                        <div style="color: #2e7d32; font-size: 0.9rem;">ألف ومئتان وأربعة وثلاثون</div>
+                    </div>
+                    <div class="number-card" onclick="speakNumber('5678', 'خمسة آلاف وستمئة وثمانية وسبعون')">
+                        <div class="number-display" style="font-size: 2rem;">5,678</div>
+                        <div style="color: #2e7d32; font-size: 0.9rem;">خمسة آلاف وستمئة وثمانية وسبعون</div>
+                    </div>
+                    <div class="number-card" onclick="speakNumber('9999', 'تسعة آلاف وتسعمئة وتسعة وتسعون')">
+                        <div class="number-display" style="font-size: 2rem;">9,999</div>
+                        <div style="color: #2e7d32; font-size: 0.9rem;">تسعة آلاف وتسعمئة وتسعة وتسعون</div>
+                    </div>
+                </div>
+                <div class="sound-waves" id="soundWaves1">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <button class="btn" onclick="speakAllNumbers()">🔊 استمع لجميع الأرقام</button>
+            </div>
+
+            <!-- النشاط الثاني: القيمة المكانية -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">2</div>
+                    القيمة المكانية
+                </div>
+                <div class="place-value-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>الآلاف</th>
+                                <th>المئات</th>
+                                <th>العشرات</th>
+                                <th>الآحاد</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td onclick="speakDigit('3', 'ثلاثة آلاف')">3</td>
+                                <td onclick="speakDigit('4', 'أربعمئة')">4</td>
+                                <td onclick="speakDigit('5', 'خمسون')">5</td>
+                                <td onclick="speakDigit('6', 'ستة')">6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="sound-waves" id="soundWaves2">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <p style="text-align: center; font-size: 1.2rem; color: #2e7d32; margin-top: 15px;">
+                    العدد: <span style="font-weight: bold; font-size: 1.5rem;">3,456</span>
+                </p>
+                <button class="btn" onclick="speakNumber('3456', 'ثلاثة آلاف وأربعمئة وستة وخمسون')">🔊 استمع للعدد كاملاً</button>
+            </div>
+
+            <!-- النشاط الثالث: مقارنة الأعداد -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">3</div>
+                    مقارنة الأعداد
+                </div>
+                <div class="quiz-question">
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 2rem; margin: 20px 0;">
+                        <span style="color: #2e7d32; font-weight: bold;">2,345</span>
+                        <span style="color: #666;">؟</span>
+                        <span style="color: #2e7d32; font-weight: bold;">2,354</span>
+                    </div>
+                    <p style="text-align: center;"><strong>أي رمز يجب وضعه بين العددين؟</strong></p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkComparison(this, true)">&lt;</div>
+                        <div class="quiz-option" onclick="checkComparison(this, false)">&gt;</div>
+                        <div class="quiz-option" onclick="checkComparison(this, false)">=</div>
+                    </div>
+                </div>
+                <div id="comparisonScore" class="score-display" style="display: none;">
+                    🎯 ممتاز! 2,345 أصغر من 2,354
+                </div>
+            </div>
+
+            <!-- النشاط الرابع: ترتيب الأعداد -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">4</div>
+                    ترتيب الأعداد تصاعدياً
+                </div>
+                <p><strong>رتب الأعداد التالية من الأصغر إلى الأكبر:</strong></p>
+                <div style="margin: 20px 0; text-align: center;">
+                    <div class="drag-item" draggable="true" ondragstart="drag(event)" id="num4567">4,567</div>
+                    <div class="drag-item" draggable="true" ondragstart="drag(event)" id="num1234">1,234</div>
+                    <div class="drag-item" draggable="true" ondragstart="drag(event)" id="num7890">7,890</div>
+                    <div class="drag-item" draggable="true" ondragstart="drag(event)" id="num3456">3,456</div>
+                </div>
+                <div class="drop-zone" id="sortingZone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    اسحب الأعداد هنا بالترتيب الصحيح
+                </div>
+                <button class="btn" onclick="checkSorting()">✓ تحقق من الترتيب</button>
+                <div id="sortingResult"></div>
+            </div>
+
+            <!-- النشاط الخامس: كتابة الأعداد بالأرقام -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">5</div>
+                    كتابة الأعداد بالأرقام
+                </div>
+                <div style="text-align: center; margin: 20px 0;">
+                    <p style="font-size: 1.3rem; color: #2e7d32; margin-bottom: 20px;">
+                        <strong>اكتب العدد التالي بالأرقام:</strong>
+                    </p>
+                    <div style="background: rgba(139, 195, 74, 0.2); padding: 20px; border-radius: 15px; font-size: 1.4rem; font-weight: bold; color: #1b5e20;">
+                        ستة آلاف وثلاثمئة وخمسة وعشرون
+                    </div>
+                </div>
+                <input type="text" class="input-field" id="numberWriting" placeholder="اكتب العدد بالأرقام...">
+                <button class="btn" onclick="checkNumberWriting()">✓ تحقق من الإجابة</button>
+                <div id="writingResult"></div>
+            </div>
+
+            <!-- النشاط السادس: تحليل العدد -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">6</div>
+                    تحليل العدد إلى قيمه المكانية
+                </div>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div class="number-display">8,739</div>
+                    <p><strong>حلل هذا العدد إلى قيمه المكانية:</strong></p>
+                </div>
+                <div class="quiz-question">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div class="quiz-option" onclick="selectDecomposition(this, true)">8000 + 700 + 30 + 9</div>
+                        <div class="quiz-option" onclick="selectDecomposition(this, false)">8000 + 700 + 39</div>
+                        <div class="quiz-option" onclick="selectDecomposition(this, false)">800 + 700 + 30 + 9</div>
+                        <div class="quiz-option" onclick="selectDecomposition(this, false)">8000 + 730 + 9</div>
+                    </div>
+                </div>
+                <div id="decompositionScore" class="score-display" style="display: none;">
+                    🧮 ممتاز! التحليل صحيح
+                </div>
+            </div>
+
+            <!-- النشاط السابع: الآلة الحاسبة التفاعلية -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">7</div>
+                    الآلة الحاسبة التفاعلية
+                </div>
+                <div class="calculator">
+                    <div class="calc-display" id="calcDisplay">0</div>
+                    <div class="calc-buttons">
+                        <div class="calc-btn" onclick="clearCalc()">C</div>
+                        <div class="calc-btn" onclick="deleteLast()">⌫</div>
+                        <div class="calc-btn operator" onclick="inputCalc('/')">/</div>
+                        <div class="calc-btn operator" onclick="inputCalc('*')">×</div>
+                        
+                        <div class="calc-btn" onclick="inputCalc('7')">7</div>
+                        <div class="calc-btn" onclick="inputCalc('8')">8</div>
+                        <div class="calc-btn" onclick="inputCalc('9')">9</div>
+                        <div class="calc-btn operator" onclick="inputCalc('-')">-</div>
+                        
+                        <div class="calc-btn" onclick="inputCalc('4')">4</div>
+                        <div class="calc-btn" onclick="inputCalc('5')">5</div>
+                        <div class="calc-btn" onclick="inputCalc('6')">6</div>
+                        <div class="calc-btn operator" onclick="inputCalc('+')">+</div>
+                        
+                        <div class="calc-btn" onclick="inputCalc('1')">1</div>
+                        <div class="calc-btn" onclick="inputCalc('2')">2</div>
+                        <div class="calc-btn" onclick="inputCalc('3')">3</div>
+                        <div class="calc-btn operator" onclick="calculate()" style="grid-row: span 2;">=</div>
+                        
+                        <div class="calc-btn" onclick="inputCalc('0')" style="grid-column: span 2;">0</div>
+                        <div class="calc-btn" onclick="inputCalc('.')">.</div>
+                    </div>
+                </div>
+                <button class="btn" onclick="speakCalcResult()">🔊 استمع للنتيجة</button>
+            </div>
+
+            <!-- النشاط الثامن: لعبة الأعداد المفقودة -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">8</div>
+                    لعبة الأعداد المفقودة
+                </div>
+                <p><strong>ما العدد المفقود في هذه السلسلة؟</strong></p>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin: 20px 0; font-size: 1.5rem; font-weight: bold;">
+                    <span style="color: #2e7d32;">2,100</span>
+                    <span style="color: #666;">→</span>
+                    <span style="color: #2e7d32;">2,200</span>
+                    <span style="color: #666;">→</span>
+                    <span style="color: #f44336;">؟</span>
+                    <span style="color: #666;">→</span>
+                    <span style="color: #2e7d32;">2,400</span>
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkMissingNumber(this, false)">2,250</div>
+                    <div class="quiz-option" onclick="checkMissingNumber(this, true)">2,300</div>
+                    <div class="quiz-option" onclick="checkMissingNumber(this, false)">2,350</div>
+                    <div class="quiz-option" onclick="checkMissingNumber(this, false)">2,500</div>
+                </div>
+                <div id="missingScore" class="score-display" style="display: none;">
+                    🔍 ممتاز! العدد المفقود هو 2,300
+                </div>
+            </div>
+
+            <!-- النشاط التاسع: تقريب الأعداد -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">9</div>
+                    تقريب الأعداد لأقرب مئة
+                </div>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div class="number-display">3,847</div>
+                    <p><strong>قرب هذا العدد لأقرب مئة:</strong></p>
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkRounding(this, false)">3,800</div>
+                    <div class="quiz-option" onclick="checkRounding(this, true)">3,900</div>
+                    <div class="quiz-option" onclick="checkRounding(this, false)">3,850</div>
+                    <div class="quiz-option" onclick="checkRounding(this, false)">4,000</div>
+                </div>
+                <div id="roundingScore" class="score-display" style="display: none;">
+                    📊 ممتاز! 3,847 يقرب إلى 3,900
+                </div>
+            </div>
+
+            <!-- النشاط العاشر: حل المسائل الكلامية -->
+            <div class="activity-card">
+                <div class="activity-title">
+                    <div class="activity-number">10</div>
+                    حل المسائل الكلامية
+                </div>
+                <div class="quiz-question">
+                    <p style="font-size: 1.2rem; line-height: 1.6; color: #2e7d32;">
+                        <strong>في مكتبة المدرسة 2,345 كتاباً في العلوم و 1,678 كتاباً في الرياضيات. كم عدد الكتب الإجمالي؟</strong>
+                    </p>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <div style="background: rgba(139, 195, 74, 0.2); padding: 15px; border-radius: 10px; display: inline-block;">
+                            📚 كتب العلوم: 2,345<br>
+                            📖 كتب الرياضيات: 1,678<br>
+                            ➕ المجموع: ؟
+                        </div>
+                    </div>
+                </div>
+                <input type="text" class="input-field" id="wordProblem" placeholder="اكتب الإجابة...">
+                <button class="btn" onclick="checkWordProblem()">✓ تحقق من الإجابة</button>
+                <div id="wordProblemResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الاحتفال -->
+    <div class="celebration" id="celebration">
+        <h2 style="color: #4caf50; margin-bottom: 20px;">🎉 مبروك! 🎉</h2>
+        <p style="font-size: 1.3rem; margin-bottom: 25px;">لقد أكملت النشاط بنجاح!</p>
+        <button class="btn" onclick="closeCelebration()">متابعة</button>
+    </div>
+
+    <script>
+        // إنشاء الأشكال الهندسية المتحركة
+        function createMathShapes() {
+            const animatedBg = document.getElementById('animatedBg');
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < 20; i++) {
+                const shape = document.createElement('div');
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                shape.className = `math-shape ${shapeType}`;
+                
+                if (shapeType === 'circle' || shapeType === 'square') {
+                    const size = Math.random() * 30 + 15;
+                    shape.style.width = size + 'px';
+                    shape.style.height = size + 'px';
+                }
+                
+                shape.style.left = Math.random() * 100 + '%';
+                shape.style.animationDelay = Math.random() * 20 + 's';
+                shape.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                animatedBg.appendChild(shape);
+            }
+        }
+
+        // تشغيل الكلام للأرقام
+        function speakNumber(number, arabic) {
+            if ('speechSynthesis' in window) {
+                showSoundWaves();
+                const utterance = new SpeechSynthesisUtterance(number);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.8;
+                utterance.pitch = 1.0;
+                utterance.volume = 0.9;
+                utterance.onend = hideSoundWaves;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function speakDigit(digit, value) {
+            if ('speechSynthesis' in window) {
+                showSoundWaves();
+                const utterance = new SpeechSynthesisUtterance(value);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.8;
+                utterance.onend = hideSoundWaves;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function speakAllNumbers() {
+            const numbers = ['ألف ومئتان وأربعة وثلاثون', 'خمسة آلاف وستمئة وثمانية وسبعون', 'تسعة آلاف وتسعمئة وتسعة وتسعون'];
+            speakNumberList(numbers);
+        }
+
+        function speakNumberList(numbers) {
+            let index = 0;
+            showSoundWaves();
+            
+            function speakNext() {
+                if (index < numbers.length) {
+                    const utterance = new SpeechSynthesisUtterance(numbers[index]);
+                    utterance.lang = 'ar-SA';
+                    utterance.rate = 0.8;
+                    utterance.onend = () => {
+                        index++;
+                        setTimeout(speakNext, 1000);
+                    };
+                    speechSynthesis.speak(utterance);
+                } else {
+                    hideSoundWaves();
+                }
+            }
+            speakNext();
+        }
+
+        function showSoundWaves() {
+            const waves = document.querySelectorAll('.sound-waves');
+            waves.forEach(wave => wave.classList.add('active'));
+        }
+
+        function hideSoundWaves() {
+            const waves = document.querySelectorAll('.sound-waves');
+            waves.forEach(wave => wave.classList.remove('active'));
+        }
+
+        // فحص المقارنة
+        function checkComparison(element, isCorrect) {
+            const options = element.parentNode.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                if (option === element) {
+                    option.classList.add(isCorrect ? 'correct' : 'wrong');
+                } else if (option.textContent === '<') {
+                    option.classList.add('correct');
+                }
+            });
+            
+            if (isCorrect) {
+                document.getElementById('comparisonScore').style.display = 'block';
+                setTimeout(showCelebration, 600);
+            }
+        }
+
+        // السحب والإفلات للترتيب
+        let sortedNumbers = [];
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+            ev.target.classList.add('drag-over');
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            ev.target.classList.remove('drag-over');
+            const data = ev.dataTransfer.getData("text");
+            const draggedElement = document.getElementById(data);
+            ev.target.appendChild(draggedElement);
+            sortedNumbers.push(draggedElement.textContent);
+        }
+
+        function checkSorting() {
+            const correctOrder = ['1,234', '3,456', '4,567', '7,890'];
+            const result = document.getElementById('sortingResult');
+            
+            if (JSON.stringify(sortedNumbers) === JSON.stringify(correctOrder)) {
+                result.innerHTML = '<div class="score-display">🎯 ممتاز! الترتيب صحيح</div>';
+                setTimeout(showCelebration, 600);
+            } else {
+                result.innerHTML = '<div style="background: rgba(244, 67, 54, 0.3); color: #d32f2f; padding: 15px; border-radius: 15px; text-align: center; margin-top: 15px;">❌ الترتيب غير صحيح. الترتيب الصحيح: 1,234 - 3,456 - 4,567 - 7,890</div>';
+                sortedNumbers = [];
+            }
+        }
+
+        // كتابة الأعداد
+        function checkNumberWriting() {
+            const input = document.getElementById('numberWriting');
+            const result = document.getElementById('writingResult');
+            const answer = input.value.trim().replace(/,/g, '');
+            
+            if (answer === '6325') {
+                result.innerHTML = '<div class="score-display">✍️ ممتاز! الإجابة صحيحة: 6,325</div>';
+                setTimeout(showCelebration, 600);
+            } else {
+                result.innerHTML = '<div style="background: rgba(244, 67, 54, 0.3); color: #d32f2f; padding: 15px; border-radius: 15px; text-align: center; margin-top: 15px;">❌ حاول مرة أخرى. الإجابة الصحيحة هي: 6,325</div>';
+            }
+        }
+
+        // تحليل العدد
+        function selectDecomposition(element, isCorrect) {
+            const options = element.parentNode.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                if (option === element) {
+                    option.classList.add(isCorrect ? 'correct' : 'wrong');
+                } else if (option.textContent === '8000 + 700 + 30 + 9') {
+                    option.classList.add('correct');
+                }
+            });
+            
+            if (isCorrect) {
+                document.getElementById('decompositionScore').style.display = 'block';
+                setTimeout(showCelebration, 600);
+            }
+        }
+
+        // الآلة الحاسبة
+        let calcExpression = '';
+        let calcResult = 0;
+
+        function inputCalc(value) {
+            const display = document.getElementById('calcDisplay');
+            if (display.textContent === '0' && !isNaN(value)) {
+                display.textContent = value;
+                calcExpression = value;
+            } else {
+                display.textContent += value;
+                calcExpression += value;
+            }
+        }
+
+        function clearCalc() {
+            document.getElementById('calcDisplay').textContent = '0';
+            calcExpression = '';
+            calcResult = 0;
+        }
+
+        function deleteLast() {
+            const display = document.getElementById('calcDisplay');
+            if (display.textContent.length > 1) {
+                display.textContent = display.textContent.slice(0, -1);
+                calcExpression = calcExpression.slice(0, -1);
+            } else {
+                display.textContent = '0';
+                calcExpression = '';
+            }
+        }
+
+        function calculate() {
+            try {
+                const expression = calcExpression.replace(/×/g, '*');
+                calcResult = eval(expression);
+                document.getElementById('calcDisplay').textContent = calcResult;
+                calcExpression = calcResult.toString();
+            } catch (error) {
+                document.getElementById('calcDisplay').textContent = 'خطأ';
+                calcExpression = '';
+            }
+        }
+
+        function speakCalcResult() {
+            if (calcResult && 'speechSynthesis' in window) {
+                showSoundWaves();
+                const utterance = new SpeechSynthesisUtterance(calcResult.toString());
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.8;
+                utterance.onend = hideSoundWaves;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // الأعداد المفقودة
+        function checkMissingNumber(element, isCorrect) {
+            const options = element.parentNode.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                if (option === element) {
+                    option.classList.add(isCorrect ? 'correct' : 'wrong');
+                } else if (option.textContent === '2,300') {
+                    option.classList.add('correct');
+                }
+            });
+            
+            if (isCorrect) {
+                document.getElementById('missingScore').style.display = 'block';
+                setTimeout(showCelebration, 600);
+            }
+        }
+
+        // التقريب
+        function checkRounding(element, isCorrect) {
+            const options = element.parentNode.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                if (option === element) {
+                    option.classList.add(isCorrect ? 'correct' : 'wrong');
+                } else if (option.textContent === '3,900') {
+                    option.classList.add('correct');
+                }
+            });
+            
+            if (isCorrect) {
+                document.getElementById('roundingScore').style.display = 'block';
+                setTimeout(showCelebration, 600);
+            }
+        }
+
+        // المسائل الكلامية
+        function checkWordProblem() {
+            const input = document.getElementById('wordProblem');
+            const result = document.getElementById('wordProblemResult');
+            const answer = input.value.trim().replace(/,/g, '');
+            
+            if (answer === '4023') {
+                result.innerHTML = '<div class="score-display">📚 ممتاز! الإجابة صحيحة: 4,023 كتاب</div>';
+                setTimeout(showCelebration, 600);
+            } else {
+                result.innerHTML = '<div style="background: rgba(244, 67, 54, 0.3); color: #d32f2f; padding: 15px; border-radius: 15px; text-align: center; margin-top: 15px;">❌ حاول مرة أخرى. الحل: 2,345 + 1,678 = 4,023</div>';
+            }
+        }
+
+        // الاحتفال
+        function showCelebration() {
+            document.getElementById('celebration').classList.add('show');
+        }
+
+        function closeCelebration() {
+            document.getElementById('celebration').classList.remove('show');
+        }
+
+        // تهيئة الصفحة
+        window.onload = function() {
+            createMathShapes();
+        };
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97333c9f55f52cfd',t:'MTc1NTg3NDc5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
